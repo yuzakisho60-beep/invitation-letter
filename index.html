@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>✨ Magical Love Envelope ✨</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+font-family:'Dancing Script','Georgia',cursive;
+background:linear-gradient(-45deg,#ff9a9e,#fecfef,#ff9a9e);
+background-size:400% 400%;
+animation:gradientShift 15s ease infinite;
+min-height:100vh;
+display:grid;
+place-items:center;
+overflow:hidden;
+position:relative;
+transition:1s;
+}
+
+@keyframes gradientShift{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+/* 🌙 Night Mode */
+body.night{
+background:linear-gradient(-45deg,#1a1a2e,#16213e,#1a1a2e);
+}
+
+/* 🎛 Controls */
+.control-panel{
+position:fixed;
+top:20px;
+right:20px;
+z-index:999;
+display:flex;
+gap:10px;
+}
+
+.control-panel button{
+background:rgba(255,255,255,0.9);
+border:none;
+padding:8px 14px;
+border-radius:20px;
+cursor:pointer;
+font-size:14px;
+transition:.3s;
+}
+
+.control-panel button:hover{
+background:#ff6b9d;
+color:white;
+}
+
+/* ✨ Floating Magic */
+.magic-bg{
+position:absolute;
+width:100%;
+height:100%;
+pointer-events:none;
+z-index:1;
+}
+
+.heart,.sparkle{
+position:absolute;
+animation:floatMagic 8s ease-in-out infinite;
+}
+
+.heart{color:#ff6b9d;font-size:22px;}
+.sparkle{color:#ffd700;font-size:18px;}
+
+@keyframes floatMagic{
+0%,100%{transform:translateY(0) rotate(0deg);opacity:.7;}
+50%{transform:translateY(-60px) rotate(180deg);opacity:.9;}
+}
+
+/* 🌸 Sakura */
+.sakura{
+position:fixed;
+top:-40px;
+font-size:18px;
+pointer-events:none;
+z-index:4;
+animation:fallWind linear forwards;
+}
+
+@keyframes fallWind{
+0%{transform:translate(0,0) rotate(0deg);}
+100%{transform:translate(120px,110vh) rotate(360deg);}
+}
+
+/* 🎈 Balloons */
+.balloon{
+position:fixed;
+bottom:-60px;
+font-size:70px;
+cursor:pointer;
+animation:floatUp linear forwards;
+z-index:5;
+transition:transform .5s ease;
+}
+
+@keyframes floatUp{
+0%{transform:translateY(0);opacity:1;}
+100%{transform:translateY(-120vh);opacity:.9;}
+}
+
+/* 💌 Presentation */
+.presentation-container{
+display:flex;
+flex-direction:column;
+align-items:center;
+z-index:10;
+text-align:center;
+padding:20px;
+}
+
+.intro-text{
+font-size:3em;
+color:#8b1a4e;
+margin-bottom:40px;
+cursor:pointer;
+transition:.5s;
+}
+
+.intro-text:hover{transform:scale(1.1);}
+
+.envelope-stage{
+perspective:1200px;
+display:flex;
+justify-content:center;
+align-items:center;
+opacity:0;
+transform:scale(.8);
+transition:1s;
+}
+
+.envelope-stage.active{
+opacity:1;
+transform:scale(1);
+}
+
+.envelope{
+width:720px;
+height:640px;
+position:relative;
+transform-style:preserve-3d;
+transition:1.2s;
+}
+
+.envelope.flipped{transform:rotateY(-180deg);}
+
+.envelope-front{
+position:absolute;
+font-size: 60px;
+width:100%;
+height:100%;
+background:linear-gradient(145deg,#ffdde1,#fd79a8);
+border-radius:25px;
+backface-visibility:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+.letter-paper{
+position:absolute;
+width:100%;
+height:100%;
+top:0;
+left:0;
+padding:40px;
+transform:rotateY(180deg);
+backface-visibility:hidden;
+background:#fff;
+border-radius:25px;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+overflow:auto;
+}
+
+.handwritten{
+font-size:28px;
+line-height:1.6;
+text-align:center;
+color:#6b2d50;
+width:100%;
+}
+
+.highlight-box{
+background:rgba(255,107,157,.15);
+border:1.5px dashed #ff6b9d;
+padding:14px;
+margin:20px auto;
+border-radius:12px;
+width:85%;
+}
+
+.signature{
+margin-top:20px;
+font-size:30px;
+color:#c44569;
+}
+
+@media(max-width:480px){
+.envelope{width:320px;height:400px;}
+.handwritten{font-size:18px;}
+}
+</style>
+</head>
+<body>
+
+<div class="control-panel">
+<button onclick="toggleMusic()">🎵 Music</button>
+<button onclick="toggleNight()">🌙 Night</button>
+</div>
+
+<!-- 🎵 SELF HOSTED MUSIC -->
+<audio id="bgMusic" loop preload="auto">
+<source src="wave to earth - love. (Official Lyric Video).mp3" type="audio/mpeg">
+</audio>
+
+<div class="magic-bg" id="magicBg"></div>
+
+<div class="presentation-container">
+<div class="intro-text" id="introText">✨ From Yours Truly ✨</div>
+
+<div class="envelope-stage" id="envelopeStage">
+<div class="envelope" id="envelope">
+
+<div class="envelope-front">
+<div>
+<div style="font-size:120px;">💌</div>
+<h2>Open Me!</h2>
+</div>
+</div>
+
+<div class="letter-paper">
+<div class="handwritten">
+
+<div>My Dearest KRIYU,</div>
+
+<div style="margin-top:20px;color:#c44569;">
+💝 <strong>Special Valentine's Invitation</strong> 💝
+</div>
+
+<div class="highlight-box">
+Let's celebrate <strong>February 14th</strong><br>
+<strong>COZY WATCH PARTY</strong> 🍿✨<br>
+</div>
+
+<div>
+Soft blankets, favorite shows, cuddles, and us ❤️
+</div>
+
+<div style="margin-top:15px;color:#ff6b9d;">
+Will you be my Valentine date? 🌹
+</div>
+
+<div class="signature">
+Yours Forever 💕<br>
+<span style="font-size:22px;font-family:Georgia;">SAMMUU</span>
+</div>
+
+</div>
+</div>
+
+</div>
+</div>
+</div>
+
+<script>
+
+/* 🎵 MUSIC WITH FADE */
+const bgMusic=document.getElementById("bgMusic");
+let isPlaying=false;
+let fadeInterval;
+
+function fadeInMusic(){
+bgMusic.volume=0;
+bgMusic.play();
+fadeInterval=setInterval(()=>{
+if(bgMusic.volume<0.4){
+bgMusic.volume+=0.02;
+}else clearInterval(fadeInterval);
+},100);
+}
+
+function fadeOutMusic(){
+fadeInterval=setInterval(()=>{
+if(bgMusic.volume>0.02){
+bgMusic.volume-=0.02;
+}else{
+clearInterval(fadeInterval);
+bgMusic.pause();
+}
+},100);
+}
+
+function toggleMusic(){
+if(!isPlaying){
+fadeInMusic();
+isPlaying=true;
+}else{
+fadeOutMusic();
+isPlaying=false;
+}
+}
+
+/* Auto start on first interaction */
+document.body.addEventListener("click",function initOnce(){
+if(!isPlaying){
+fadeInMusic();
+isPlaying=true;
+}
+document.body.removeEventListener("click",initOnce);
+});
+
+/* 🌙 NIGHT MODE */
+function toggleNight(){
+document.body.classList.toggle("night");
+}
+
+/* ✨ MAGIC BACKGROUND */
+function createMagicBg(){
+const bg=document.getElementById('magicBg');
+const elements=['💖','💕','💗','✨','🌟','💫'];
+for(let i=0;i<25;i++){
+const elem=document.createElement('div');
+elem.className=Math.random()>0.7?'sparkle':'heart';
+elem.innerHTML=elements[Math.floor(Math.random()*elements.length)];
+elem.style.left=Math.random()*100+'%';
+elem.style.top=Math.random()*100+'%';
+elem.style.animationDelay=Math.random()*8+'s';
+bg.appendChild(elem);
+}
+}
+createMagicBg();
+
+/* 🌸 SAKURA */
+function createSakura(){
+const petal=document.createElement('div');
+petal.className='sakura';
+petal.innerHTML='🌸';
+petal.style.left=Math.random()*100+'vw';
+petal.style.animationDuration=(Math.random()*5+6)+'s';
+document.body.appendChild(petal);
+setTimeout(()=>petal.remove(),10000);
+}
+setInterval(createSakura,600);
+
+/* 🎈 BALLOONS */
+let mouseX=0;
+document.addEventListener("mousemove",e=>{mouseX=e.clientX;});
+
+function createBalloon(){
+const balloon=document.createElement('div');
+balloon.className='balloon';
+const hearts=['💖','💘','💝','❤️','💗'];
+balloon.innerHTML=hearts[Math.floor(Math.random()*hearts.length)];
+balloon.style.left=Math.random()*100+'vw';
+balloon.style.animationDuration=(Math.random()*6+6)+'s';
+
+balloon.onclick=()=>{
+balloon.innerHTML='💥';
+setTimeout(()=>balloon.remove(),300);
+};
+
+document.body.appendChild(balloon);
+
+const follow=setInterval(()=>{
+balloon.style.transform=`translateX(${(mouseX-window.innerWidth/2)/40}px)`;
+},100);
+
+setTimeout(()=>{
+clearInterval(follow);
+balloon.remove();
+},12000);
+}
+setInterval(createBalloon,1500);
+
+/* 💌 STAGE LOGIC */
+const introText=document.getElementById('introText');
+const envelopeStage=document.getElementById('envelopeStage');
+const envelope=document.getElementById('envelope');
+let stage=1;
+
+introText.onclick=function(){
+if(stage===1){
+introText.style.opacity='0';
+setTimeout(()=>{
+introText.style.display='none';
+envelopeStage.classList.add('active');
+stage=2;
+},500);
+}
+}
+
+envelopeStage.onclick=function(){
+if(stage===2){
+envelope.classList.add('flipped');
+stage=3;
+}
+}
+
+</script>
+</body>
+</html>
