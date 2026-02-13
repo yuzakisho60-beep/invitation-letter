@@ -29,12 +29,10 @@ transition:1s;
 100%{background-position:0% 50%;}
 }
 
-/* 🌙 Night Mode */
 body.night{
 background:linear-gradient(-45deg,#1a1a2e,#16213e,#1a1a2e);
 }
 
-/* 🎛 Controls */
 .control-panel{
 position:fixed;
 top:20px;
@@ -45,98 +43,66 @@ gap:10px;
 }
 
 .control-panel button{
-background:rgba(255,255,255,0.9);
+padding:10px 18px;
 border:none;
-padding:8px 14px;
-border-radius:20px;
+border-radius:25px;
 cursor:pointer;
-font-size:14px;
-transition:.3s;
+font-size:16px;
 }
 
-.control-panel button:hover{
-background:#ff6b9d;
-color:white;
-}
+.presentation-container{text-align:center;z-index:10;}
 
-/* ✨ Floating Magic */
-.magic-bg{
-position:absolute;
-width:100%;
-height:100%;
+/* 🌸 Sakura & 💖 Hearts Floating */
+
+.sakura, .heart {
+position:fixed;
+top:-50px;
 pointer-events:none;
 z-index:1;
+opacity:0.9;
+animation:floatDown linear infinite;
 }
 
-.heart,.sparkle{
-position:absolute;
-animation:floatMagic 8s ease-in-out infinite;
+@keyframes floatDown{
+0%{
+transform:translateY(-50px) translateX(0px) rotate(0deg);
+opacity:0;
+}
+10%{opacity:1;}
+50%{
+transform:translateY(50vh) translateX(40px) rotate(180deg);
+}
+100%{
+transform:translateY(110vh) translateX(-60px) rotate(360deg);
+opacity:0;
+}
 }
 
-.heart{color:#ff6b9d;font-size:22px;}
-.sparkle{color:#ffd700;font-size:18px;}
 
-@keyframes floatMagic{
-0%,100%{transform:translateY(0) rotate(0deg);opacity:.7;}
-50%{transform:translateY(-60px) rotate(180deg);opacity:.9;}
-}
-
-/* 🌸 Sakura */
-.sakura{
+/* ✨ Particles */
+.particle{
 position:fixed;
-top:-40px;
-font-size:18px;
+border-radius:50%;
 pointer-events:none;
-z-index:4;
-animation:fallWind linear forwards;
-}
-
-@keyframes fallWind{
-0%{transform:translate(0,0) rotate(0deg);}
-100%{transform:translate(120px,110vh) rotate(360deg);}
-}
-
-/* 🎈 Balloons */
-.balloon{
-position:fixed;
-bottom:-60px;
-font-size:70px;
-cursor:pointer;
-animation:floatUp linear forwards;
-z-index:5;
-transition:transform .5s ease;
+animation:floatUp linear infinite;
+z-index:1;
+opacity:0.6;
 }
 
 @keyframes floatUp{
-0%{transform:translateY(0);opacity:1;}
-100%{transform:translateY(-120vh);opacity:.9;}
-}
-
-/* 💌 Presentation */
-.presentation-container{
-display:flex;
-flex-direction:column;
-align-items:center;
-z-index:10;
-text-align:center;
-padding:20px;
+0%{transform:translateY(0) scale(0.5);opacity:0;}
+10%{opacity:0.7;}
+100%{transform:translateY(-110vh) scale(1.2);opacity:0;}
 }
 
 .intro-text{
 font-size:3em;
-color:#8b1a4e;
 margin-bottom:40px;
 cursor:pointer;
-transition:.5s;
 }
-
-.intro-text:hover{transform:scale(1.1);}
 
 .envelope-stage{
 perspective:1200px;
-display:flex;
-justify-content:center;
-align-items:center;
 opacity:0;
 transform:scale(.8);
 transition:1s;
@@ -148,8 +114,8 @@ transform:scale(1);
 }
 
 .envelope{
-width:720px;
-height:640px;
+width:800px;
+height:620px;
 position:relative;
 transform-style:preserve-3d;
 transition:1.2s;
@@ -157,66 +123,124 @@ transition:1.2s;
 
 .envelope.flipped{transform:rotateY(-180deg);}
 
-.envelope-front{
+.envelope-front,.letter-paper{
 position:absolute;
-font-size: 60px;
 width:100%;
 height:100%;
-background:linear-gradient(145deg,#ffdde1,#fd79a8);
 border-radius:25px;
 backface-visibility:hidden;
 display:flex;
 justify-content:center;
 align-items:center;
+}
+
+.envelope-front{
+background:linear-gradient(145deg,#ffdde1,#fd79a8);
 }
 
 .letter-paper{
-position:absolute;
-width:100%;
-height:100%;
-top:0;
-left:0;
-padding:40px;
+background:white;
 transform:rotateY(180deg);
-backface-visibility:hidden;
-background:#fff;
-border-radius:25px;
-display:flex;
 flex-direction:column;
-justify-content:center;
-align-items:center;
+padding:40px;
 overflow:auto;
 }
 
-.handwritten{
-font-size:28px;
-line-height:1.6;
-text-align:center;
-color:#6b2d50;
-width:100%;
-}
+.handwritten{font-size:30px;text-align:center;}
 
 .highlight-box{
-background:rgba(255,107,157,.15);
-border:1.5px dashed #ff6b9d;
-padding:14px;
 margin:20px auto;
-border-radius:12px;
-width:85%;
+padding:15px;
+border-radius:15px;
+border:1.5px dashed #ff6b9d;
+background:rgba(255,107,157,.15);
 }
 
-.signature{
+.signature{margin-top:20px;font-size:28px;}
+
+.love-buttons{
 margin-top:20px;
-font-size:30px;
-color:#c44569;
+display:flex;
+justify-content:center;
+gap:20px;
 }
 
-@media(max-width:480px){
-.envelope{width:320px;height:400px;}
-.handwritten{font-size:18px;}
+.love-buttons button{
+padding:12px 30px;
+font-size:20px;
+border:none;
+border-radius:30px;
+cursor:pointer;
+transition:.3s;
+}
+
+.love-buttons button:hover{transform:scale(1.1);}
+
+.love-buttons button:first-child{
+background:#ff6b9d;color:white;
+}
+
+.love-buttons button:last-child{
+background:#ddd;
+}
+
+.love-modal{
+position:fixed;
+top:0;left:0;
+width:100%;height:100%;
+background:rgba(0,0,0,0.5);
+display:flex;
+justify-content:center;
+align-items:center;
+visibility:hidden;
+opacity:0;
+transition:.3s;
+z-index:1000;
+}
+
+.love-modal.active{
+visibility:visible;
+opacity:1;
+}
+
+.love-modal-content{
+background:white;
+padding:30px 40px;
+border-radius:20px;
+text-align:center;
+font-size:28px;
+}
+
+.modal-buttons{
+margin-top:20px;
+display:flex;
+justify-content:center;
+gap:15px;
+}
+
+.modal-buttons button{
+padding:15px 25px;
+border:none;
+border-radius:25px;
+cursor:pointer;
+color:white;
+font-size:22px;
+}
+
+#catContainer{
+margin-top:15px;
+font-size:60px;
+}
+
+#finalMessage{
+margin-top:25px;
+font-size:32px;
+color:#ff4d88;
+display:none;
 }
 </style>
 </head>
+
 <body>
 
 <div class="control-panel">
@@ -224,12 +248,8 @@ color:#c44569;
 <button onclick="toggleNight()">🌙 Night</button>
 </div>
 
-<!-- 🎵 SELF HOSTED MUSIC -->
-<audio id="bgMusic" loop preload="auto">
-<source src="wave to earth - love. (Official Lyric Video).mp3" type="audio/mpeg">
-</audio>
+<audio id="bgMusic" loop preload="auto"></audio>
 
-<div class="magic-bg" id="magicBg"></div>
 
 <div class="presentation-container">
 <div class="intro-text" id="introText">✨ From Yours Truly ✨</div>
@@ -239,17 +259,17 @@ color:#c44569;
 
 <div class="envelope-front">
 <div>
-<div style="font-size:120px;">💌</div>
-<h2>Open Me!</h2>
+<div style="font-size:60px;">💌</div>
+<h2 style="font-size:45px;">Open Me!</h2>
 </div>
 </div>
 
 <div class="letter-paper">
 <div class="handwritten">
 
-<div>My Dearest KRIYU,</div>
+<div>My Dearest KRIYUUU,</div>
 
-<div style="margin-top:20px;color:#c44569;">
+<div style="margin-top:20px;">
 💝 <strong>Special Valentine's Invitation</strong> 💝
 </div>
 
@@ -259,159 +279,249 @@ Let's celebrate <strong>February 14th</strong><br>
 </div>
 
 <div>
-Soft blankets, favorite shows, cuddles, and us ❤️
-</div>
-
-<div style="margin-top:15px;color:#ff6b9d;">
 Will you be my Valentine date? 🌹
 </div>
 
+<div class="love-buttons">
+<button onclick="handleYes()">💖 Yes</button>
+<button onclick="handleNo()">🙈 No</button>
+</div>
+
+<div id="catContainer"></div>
+
+<div id="finalMessage">
+💍 She Said YES! 💖<br>
+February 14th is officially ours ✨
+</div>
+
 <div class="signature">
-Yours Forever 💕<br>
-<span style="font-size:22px;font-family:Georgia;">SAMMUU</span>
+Yours Forever 💕<br><strong>SAMMUUUUU</strong>
 </div>
 
 </div>
 </div>
-
 </div>
+</div>
+</div>
+
+<!-- Modal -->
+<div id="loveModal" class="love-modal">
+<div class="love-modal-content">
+<div id="modalText"></div>
+<div id="modalButtons" class="modal-buttons"></div>
 </div>
 </div>
 
 <script>
 
-/* 🎵 MUSIC WITH FADE */
-const bgMusic=document.getElementById("bgMusic");
-let isPlaying=false;
-let fadeInterval;
+/* Music */
+/* 🎵 Multi Song System */
+/* 🎵 Multi Song Auto-Start System */
 
-function fadeInMusic(){
-bgMusic.volume=0;
-bgMusic.play();
-fadeInterval=setInterval(()=>{
-if(bgMusic.volume<0.4){
-bgMusic.volume+=0.02;
-}else clearInterval(fadeInterval);
-},100);
-}
+const bgMusic = document.getElementById("bgMusic");
 
-function fadeOutMusic(){
-fadeInterval=setInterval(()=>{
-if(bgMusic.volume>0.02){
-bgMusic.volume-=0.02;
-}else{
-clearInterval(fadeInterval);
-bgMusic.pause();
-}
-},100);
-}
+const songs = [
+{ name: "MERRY-GO-ROUND💕", src: "Joe Hisaishi - Merry-Go-Round of Life (from Howl’s Moving Castle).mp3" },
+{ name: "BLUE🌸", src: "yung kai - blue (Lyrics).mp3" }
 
-function toggleMusic(){
-if(!isPlaying){
-fadeInMusic();
-isPlaying=true;
-}else{
-fadeOutMusic();
-isPlaying=false;
-}
-}
+];
 
-/* Auto start on first interaction */
-document.body.addEventListener("click",function initOnce(){
-if(!isPlaying){
-fadeInMusic();
-isPlaying=true;
-}
-document.body.removeEventListener("click",initOnce);
+let currentSongIndex = 0;
+let isPlaying = false;
+
+/* 🔥 AUTO START ON PAGE LOAD */
+window.addEventListener("load", () => {
+startSong(0);
 });
 
-/* 🌙 NIGHT MODE */
-function toggleNight(){
-document.body.classList.toggle("night");
+function startSong(index){
+currentSongIndex = index;
+bgMusic.src = songs[index].src;
+bgMusic.volume = 0.4;
+
+bgMusic.play().then(()=>{
+isPlaying = true;
+}).catch(()=>{
+// If autoplay blocked, start on first click anywhere
+document.body.addEventListener("click",()=>{
+if(!isPlaying){
+bgMusic.play();
+isPlaying = true;
+}
+},{ once:true });
+});
 }
 
-/* ✨ MAGIC BACKGROUND */
-function createMagicBg(){
-const bg=document.getElementById('magicBg');
-const elements=['💖','💕','💗','✨','🌟','💫'];
-for(let i=0;i<25;i++){
-const elem=document.createElement('div');
-elem.className=Math.random()>0.7?'sparkle':'heart';
-elem.innerHTML=elements[Math.floor(Math.random()*elements.length)];
-elem.style.left=Math.random()*100+'%';
-elem.style.top=Math.random()*100+'%';
-elem.style.animationDelay=Math.random()*8+'s';
-bg.appendChild(elem);
-}
-}
-createMagicBg();
+/* 🎵 Music Button Opens Selector */
+function toggleMusic(){
 
-/* 🌸 SAKURA */
+let songOptions = songs.map((song,index)=>({
+text: song.name,
+color: index === currentSongIndex ? "#ff6b9d" : "#999",
+action: ()=>selectSong(index)
+}));
+
+if(isPlaying){
+songOptions.push({
+text:"Stop Music ⏹️",
+color:"#444",
+action: stopMusic
+});
+}
+
+openModal("🎵 Choose your love soundtrack", songOptions);
+}
+
+function selectSong(index){
+startSong(index);
+closeModal();
+}
+
+function stopMusic(){
+bgMusic.pause();
+isPlaying = false;
+closeModal();
+}
+
 function createSakura(){
-const petal=document.createElement('div');
-petal.className='sakura';
-petal.innerHTML='🌸';
-petal.style.left=Math.random()*100+'vw';
-petal.style.animationDuration=(Math.random()*5+6)+'s';
-document.body.appendChild(petal);
-setTimeout(()=>petal.remove(),10000);
-}
-setInterval(createSakura,600);
+const sakura=document.createElement("div");
+sakura.classList.add("sakura");
+sakura.innerHTML="🌸";
 
-/* 🎈 BALLOONS */
-let mouseX=0;
-document.addEventListener("mousemove",e=>{mouseX=e.clientX;});
+const size = Math.random()*30 + 15; // random size
+sakura.style.fontSize = size + "px";
 
-function createBalloon(){
-const balloon=document.createElement('div');
-balloon.className='balloon';
-const hearts=['💖','💘','💝','❤️','💗'];
-balloon.innerHTML=hearts[Math.floor(Math.random()*hearts.length)];
-balloon.style.left=Math.random()*100+'vw';
-balloon.style.animationDuration=(Math.random()*6+6)+'s';
+sakura.style.left = Math.random()*100 + "vw";
 
-balloon.onclick=()=>{
-balloon.innerHTML='💥';
-setTimeout(()=>balloon.remove(),300);
-};
+const duration = Math.random()*8 + 6; // random speed
+sakura.style.animationDuration = duration + "s";
 
-document.body.appendChild(balloon);
+document.body.appendChild(sakura);
 
-const follow=setInterval(()=>{
-balloon.style.transform=`translateX(${(mouseX-window.innerWidth/2)/40}px)`;
-},100);
-
-setTimeout(()=>{
-clearInterval(follow);
-balloon.remove();
-},12000);
-}
-setInterval(createBalloon,1500);
-
-/* 💌 STAGE LOGIC */
-const introText=document.getElementById('introText');
-const envelopeStage=document.getElementById('envelopeStage');
-const envelope=document.getElementById('envelope');
-let stage=1;
-
-introText.onclick=function(){
-if(stage===1){
-introText.style.opacity='0';
-setTimeout(()=>{
-introText.style.display='none';
-envelopeStage.classList.add('active');
-stage=2;
-},500);
-}
+setTimeout(()=>sakura.remove(), duration*1000);
 }
 
-envelopeStage.onclick=function(){
-if(stage===2){
-envelope.classList.add('flipped');
-stage=3;
+setInterval(createSakura, 500);
+
+function createHeart(){
+const heart=document.createElement("div");
+heart.classList.add("heart");
+
+const hearts=["💖","💘","💗","💞","💕"];
+heart.innerHTML = hearts[Math.floor(Math.random()*hearts.length)];
+
+const size = Math.random()*35 + 20;
+heart.style.fontSize = size + "px";
+
+heart.style.left = Math.random()*100 + "vw";
+
+const duration = Math.random()*7 + 6;
+heart.style.animationDuration = duration + "s";
+
+document.body.appendChild(heart);
+
+setTimeout(()=>heart.remove(), duration*1000);
+}
+
+setInterval(createHeart, 700);
+
+
+
+
+function toggleNight(){document.body.classList.toggle("night");}
+
+/* Envelope */
+const intro=document.getElementById("introText");
+const stage=document.getElementById("envelopeStage");
+const envelope=document.getElementById("envelope");
+
+intro.onclick=()=>{
+intro.style.display="none";
+stage.classList.add("active");
+}
+
+stage.onclick=()=>{
+envelope.classList.add("flipped");
+}
+
+/* LOVE GAME */
+let noCount=0;
+const modal=document.getElementById("loveModal");
+const modalText=document.getElementById("modalText");
+const modalButtons=document.getElementById("modalButtons");
+
+function openModal(text,buttons){
+modalText.innerHTML=text;
+modalButtons.innerHTML="";
+buttons.forEach(btn=>{
+const b=document.createElement("button");
+b.innerText=btn.text;
+b.style.background=btn.color;
+b.onclick=btn.action;
+modalButtons.appendChild(b);
+});
+modal.classList.add("active");
+}
+
+function closeModal(){modal.classList.remove("active");}
+
+/* ✅ FINAL YES LOGIC */
+function handleYes(){
+closeModal();
+document.querySelector(".love-buttons").style.display="none";
+document.getElementById("finalMessage").style.display="block";
+document.getElementById("catContainer").innerHTML="🐱💖✨";
+}
+
+/* NO FLOW */
+function handleNo(){
+noCount++;
+
+if(noCount===1){
+openModal("Are you sure? 🥺",[
+{text:"Yes 😈",color:"#999",action:secondQuestion},
+{text:"No 💖",color:"#ff6b9d",action:handleYes}
+]);
+}
+else if(noCount===2){   
+openModal("🐱💔<br><br>Please?? 🥺",[
+{text:"Okay fine 💖",color:"#ff6b9d",action:handleYes},
+{text:"Still No 😭",color:"#999",action:finalTrap}
+]);
+
+}
+else{
+finalTrap();
 }
 }
 
+function secondQuestion(){
+openModal("Really?? 😢",[
+{text:"Yes 😭",color:"#999",action:chocolateQuestion},
+{text:"No 💖",color:"#ff6b9d",action:handleYes}
+]);
+}
+
+function chocolateQuestion(){
+openModal("If I buy you chocolates then?? 🍫",[
+{text:"Yes 😋",color:"#ff6b9d",action:handleYes},
+{text:"No 🙈",color:"#999",action:sadCatPopup}
+]);
+}
+function sadCatPopup(){
+openModal("🐱💔<br><br>ouchh...that hurt..think again please...huhuhuu",[ 
+{text:"hmm…",color:"#999",action:closeModal}
+]);
+}
+
+
+function finalTrap(){
+openModal("Ok final question… Will you be my Valentine forever?? 💍💖",[
+{text:"Yes 💍",color:"#ff6b9d",action:handleYes},
+{text:"Absolutely Yes 💖",color:"#ff85c1",action:handleYes}
+]);
+}
 </script>
+
 </body>
 </html>
